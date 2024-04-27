@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.Math;
 
 public class Calculator implements ActionListener {
 
@@ -26,10 +27,15 @@ public class Calculator implements ActionListener {
     JButton MultiButton;
     JButton DivideButton;
     JButton EqualButton;
+    JButton logButton;
+    JButton radicalButton;
+    JButton factoryelButton;
     JButton DecimalButton;
     JButton DeleteButton;
     JButton ClearButton;
+    JButton powButton;
 
+    JButton manfibutton;
     JTextField text;
 
     String operation = "";
@@ -37,19 +43,16 @@ public class Calculator implements ActionListener {
     double firstInput = 0.0;
     double secondInput = 0.0;
 
-    public Calculator() {
-
-    }
 
     public void setupFrame() {
 
         frame = new JFrame("Calculator");
 
-        frame.setSize(310, 400);
+        frame.setSize(420, 450);
         frame.setVisible(true);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(Color.darkGray);
+        frame.getContentPane().setBackground(new Color(86, 113, 137));
 
     }
     public void setupButton(){
@@ -74,8 +77,15 @@ public class Calculator implements ActionListener {
         EqualButton = new JButton("=");
         DecimalButton = new JButton(".");
 
+        logButton = new JButton("log");
+        factoryelButton = new JButton("fac");
+        radicalButton = new JButton("rad");
+        powButton = new JButton("^");
+
         DeleteButton = new JButton("Del");
-        ClearButton = new JButton("Clear");
+        ClearButton = new JButton("CLR");
+        manfibutton = new JButton("-");
+
 
         button0.addActionListener(this);
         button1.addActionListener(this);
@@ -94,35 +104,62 @@ public class Calculator implements ActionListener {
         MultiButton.addActionListener(this);
         EqualButton.addActionListener(this);
         DecimalButton.addActionListener(this);
+
+        logButton.addActionListener(this);
+        radicalButton.addActionListener(this);
+        factoryelButton.addActionListener(this);
+        powButton.addActionListener(this);
+
         ClearButton.addActionListener(this);
         DeleteButton.addActionListener(this);
-
+        manfibutton.addActionListener(this);
     //size button
 
-        button1.setBounds(50,100,40,30);
-        button2.setBounds(100,100,40,30);
-        button3.setBounds(150,100,40,30);
-        AddButton.setBounds(200,100,50,30);
+        button1.setBounds(50,100,70,30);
+        button2.setBounds(130,100,70,30);
+        button3.setBounds(210,100,70,30);
+        AddButton.setBounds(290,100,70,30);
 
-        button4.setBounds(50,150,40,30);
-        button5.setBounds(100,150,40,30);
-        button6.setBounds(150,150,40,30);
-        MultiButton.setBounds(200,150,50,30);
+        button4.setBounds(50,150,70,30);
+        button5.setBounds(130,150,70,30);
+        button6.setBounds(210,150,70,30);
+        MultiButton.setBounds(290,150,70,30);
 
-        button7.setBounds(50,200,40,30);
-        button8.setBounds(100,200,40,30);
-        button9.setBounds(150,200,40,30);
-        MinusButton.setBounds(200,200,50,30);
+        button7.setBounds(50,200,70,30);
+        button8.setBounds(130,200,70,30);
+        button9.setBounds(210,200,70,30);
+        MinusButton.setBounds(290,200,70,30);
 
-        DecimalButton.setBounds(50,250,40,30);
-        button0.setBounds(100,250,40,30);
-        EqualButton.setBounds(150,250,42,30);
-        DivideButton.setBounds(200,250,50,30);
-        DeleteButton.setBounds(60,300,80,30);
-        ClearButton.setBounds(160,300,80,30);
+        DecimalButton.setBounds(50,250,70,30);
+        button0.setBounds(130,250,70,30);
+        EqualButton.setBounds(210,250,70,30);
+        DivideButton.setBounds(290,250,70,30);
 
-        ClearButton.setBackground(Color.pink);
-        DeleteButton.setBackground(Color.pink);
+
+        logButton.setBounds(50,300,70,30);
+        powButton.setBounds(130,300,70,30);
+        radicalButton.setBounds(210,300,70,30);
+        factoryelButton.setBounds(290,300,70,30);
+
+        DeleteButton.setBounds(70,350,70,30);
+        ClearButton.setBounds(160,350,70,30);
+        manfibutton.setBounds(250,350,70,30);
+
+        Color beige = new Color(250, 214, 165);
+
+        AddButton.setBackground(beige);
+        MinusButton.setBackground(beige);
+        MultiButton.setBackground(beige);
+        EqualButton.setBackground(beige);
+        DivideButton.setBackground(beige);
+        logButton.setBackground(beige);
+        powButton.setBackground(beige);
+        radicalButton.setBackground(beige);
+        factoryelButton.setBackground(beige);
+
+        manfibutton.setBackground(new Color(207, 185, 151));
+        ClearButton.setBackground(new Color(207, 185, 151));
+        DeleteButton.setBackground(new Color(207, 185, 151));
 
         //visible
         frame.add(button1);
@@ -141,16 +178,20 @@ public class Calculator implements ActionListener {
         frame.add(MultiButton);
         frame.add(DecimalButton);
         frame.add(EqualButton);
+        frame.add(powButton);
+        frame.add(logButton);
+        frame.add(factoryelButton);
+        frame.add(radicalButton);
         frame.add(DeleteButton);
         frame.add(ClearButton);
-
+        frame.add(manfibutton);
 
     }
 
     public void setFiled(){
 
         text = new JTextField();
-        text.setBounds(60,50,180,30);
+        text.setBounds(60,50,290,30);
         frame.add(text);
     }
 
@@ -242,6 +283,58 @@ public class Calculator implements ActionListener {
                 Double resalut = firstInput * secondInput;
                 text.setText(resalut + "");
             }
+            if(operation == "^"){
+                double resalut =  Math.pow(firstInput,secondInput);
+                text.setText(resalut+"");
+            }
+        }
+        if( e.getSource() == logButton ){
+            firstInput = Double.parseDouble(text.getText());
+            Double resalut = Math.log10(firstInput);
+            text.setText("");
+            text.setText(resalut + "");
+
+        }
+        if( e.getSource() == factoryelButton ){
+            firstInput = Double.parseDouble(text.getText());
+            System.out.println(firstInput);
+            int resalut =1;
+
+            for (int i = 1; i <= firstInput; i++) {
+                resalut = resalut*i;
+            }
+            text.setText("");
+            text.setText(resalut+"");
+
+        }
+        if( e.getSource() == radicalButton ){
+            firstInput = Double.parseDouble(text.getText());
+            double resalut = Math.sqrt(firstInput);
+            text.setText("");
+            text.setText(resalut + "");
+
+
+        }
+        if( e.getSource() == powButton ){
+            firstInput = Double.parseDouble(text.getText());
+            text.setText("");
+            operation = "^";
+
+        }
+
+        if( e.getSource() == radicalButton ){
+            firstInput = Double.parseDouble(text.getText());
+            double x = Math.sqrt(firstInput);
+            text.setText(x + "");
+
+        }
+        if( e.getSource() == manfibutton ){
+            String input_value = text.getText();
+            if (input_value.charAt(0) != '-') {
+                text.setText("");
+                text.setText("-" + input_value);
+            }
+
         }
         if( e.getSource() == DeleteButton ){
             String del = text.getText();
