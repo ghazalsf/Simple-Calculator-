@@ -4,6 +4,7 @@ A simple calculator implemented in Java with a graphical user interface.
 <p align="center">
   <img src="pic/gui.jpg" alt="Calculator">
 </p>
+
 ## Features
 
 - Basic arithmetic operations: addition, subtraction, multiplication, and division.
